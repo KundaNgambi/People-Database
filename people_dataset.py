@@ -1,6 +1,8 @@
 
 
 import csv
+from datetime import datetime
+
 
 filename = 'people-100.csv'
 
@@ -27,3 +29,19 @@ def User_count():
     print(f'Number Females: {number_females}')
 
 User_count()
+
+
+def age_analysis():
+
+    with open(filename, 'r', newline="") as file:
+        reader = csv.DictReader(file)
+        age_list = list()
+        today = datetime.today()
+
+        birthdays = [row['Date of birth'] for row in reader]
+        for i in birthdays:
+            i -= today
+
+
+
+age_analysis()
