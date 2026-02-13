@@ -2,7 +2,7 @@
 
 import csv
 from datetime import datetime
-from collections import Counter
+from collections import Counter,defaultdict
 
 
 filename = 'people-100.csv'
@@ -31,7 +31,7 @@ def User_count():
 
 User_count()
 
-
+print("\n\tAge Analysis.\n")
 def age_analysis():
 
     with open(filename, 'r', newline="") as file:
@@ -59,7 +59,7 @@ youngest = max(data, key=data.get)
 print("Oldest:", oldest, "-", data[oldest].date())
 print("Youngest:", youngest, "-", data[youngest].date())
 
-
+print("\n\tJob Analysis.\n")
 def job_analysis():
 
 
@@ -83,10 +83,24 @@ def job_analysis():
 
         for index, (job, count) in enumerate(first_five, start=1):
             print(f"{index}. {job}: {count} people")
-
-
 job_analysis()
 
-
+print("\n\tEmail Domain Analysis By Gender.\n")
 def  email_domain_analysis_by_gender():
+
+    with open(filename,'r',newline='') as file:
+        reader = csv.DictReader(file)
+
+        domain_gender_count = defaultdict(lambda: {"Male": 0, "Female": 0})
+
+        for user in reader:
+            domain = user["Email"].split("@")[1]  # Extract domain
+            gender = user["Sex"]
+            domain_gender_count[domain][gender] += 1
+
+
+        for domain, counts in domain_gender_count.items():
+            print(f"{domain}: Male = {counts['Male']}, Female = {counts['Female']}")
+
+email_domain_analysis_by_gender()
 
