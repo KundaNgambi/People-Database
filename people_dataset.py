@@ -85,6 +85,8 @@ def job_analysis():
             print(f"{index}. {job}: {count} people")
 
 
-
-
 job_analysis()
+
+
+def  email_domain_analysis_by_gender():
+
